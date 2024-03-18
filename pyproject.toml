@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "fastapi-todo-app"
+version = "0.1.0"
+description = "Simple fastapi todo app"
+authors = ["Kerelko Barabash <kerelkobarabash@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.110.0"
+sqlalchemy = "^2.0.28"
+pytest = "^8.1.1"
+uvicorn = {extras = ["standard"], version = "^0.28.0"}
+
+[tool.black]
+line-length = 79
+target-version = ['py36', 'py37', 'py38', 'py39']
+skip-string-normalization = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
