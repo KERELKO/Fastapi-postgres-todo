@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 
 
-app = FastAPI()
-
-
-@app.get('/test/')
-async def first_func():
-    return {'Hello': 'world!'}    
-
+def create_app():
+    return FastAPI(
+        title='FastAPI todo app',
+        docs_url='/api/docs',
+        description='Simple todo app on FastAPI',
+        debug=True,
+    )
