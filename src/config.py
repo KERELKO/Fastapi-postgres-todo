@@ -5,7 +5,7 @@ from src.constants import Environment, DESCRIPTION
 
 
 class Config(BaseSettings):
-    DATABASE_URL: str = 'sqlite+aiosqlite:///main.db'
+    DATABASE_URL: str = 'sqlite+aiosqlite:///db.sqlite3'
     ENV: Environment = Environment.LOCAL
     LOG_LEVEL: str = 'INFO'
 

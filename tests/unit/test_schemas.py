@@ -12,14 +12,14 @@ def make_note(**kwargs):
     return Note(title='10 Push ups', author=make_user(), **kwargs)
 
 
-def test_note_data_set_correctly():
+def test_note_data_is_correct():
     note = make_note(status=Status.COMPLETED)
     assert note.status == Status.COMPLETED
     assert note.__str__() == '[COMPLETED]:10 Push ups'
     assert note.created_at.day == datetime.datetime.today().day
 
 
-def test_user_data_set_correctly():
+def test_user_data_is_correct():
     user = make_user(email='user@gmail.com')
     assert user.__str__() == 'username=Antony email=user@gmail.com'
 
