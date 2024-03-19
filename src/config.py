@@ -13,7 +13,7 @@ class Config(BaseSettings):
 settings = Config()
 
 app_configs: dict[str, Any] = {
-    'title': 'FastAPI todo app',
+    'title': 'FastAPI todo app API',
     'description': DESCRIPTION,
 }
 

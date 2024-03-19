@@ -15,4 +15,4 @@ class Environment(str, Enum):
         return self in (self.PRODUCTION,)
 
 
-DESCRIPTION = 'Simple todo app with FastAPI'
+DESCRIPTION = ''

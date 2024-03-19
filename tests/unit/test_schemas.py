@@ -9,7 +9,7 @@ def make_user(**kwargs):
 
 
 def make_note(**kwargs):
-    return Note(title='10 Push ups', author=make_user(), **kwargs)
+    return Note(title='10 Push ups', author_id=1, **kwargs)
 
 
 def test_note_data_is_correct():
