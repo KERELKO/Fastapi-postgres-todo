@@ -3,10 +3,22 @@ from typing import Optional
 
 from pydantic import Field
 
-from src.schemas import CustomBaseModel, Status
+from src.schemas import (
+    CustomBaseModel,
+    BaseOutModel,
+    Status,
+)
 
 
-class Note(CustomBaseModel):
+class BaseNoteModel(CustomBaseModel):
+    pass
+
+
+class BaseNoteOutModel(BaseOutModel):
+    pass
+
+
+class NoteCreate(BaseNoteModel):
     title: str
     author_id: int
     description: Optional[str] = None
@@ -18,3 +30,11 @@ class Note(CustomBaseModel):
 
     def __str__(self):
         return f'[{self.status.value}]:{self.title}'
+
+
+class NoteOut(NoteCreate, BaseNoteOutModel):
+    pass
+
+
+class NoteUpdate(NoteCreate):
+    pass

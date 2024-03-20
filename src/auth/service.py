@@ -7,16 +7,19 @@ from .schemas import (
     BaseUserModel,
     UserOut,
     UserUpdate,
-    UserCreate
+    UserCreate,
 )
 
 
 repo = make_sqlalchemy_repo()
 
 
-async def create_user(data: BaseUserModel = UserCreate) -> int:
+async def create_user(
+    data: BaseUserModel = UserCreate, scheme: BaseOutModel = UserOut
+) -> UserOut:
     data = db.UserModel(**data.__dict__)
-    return await repo.add(data)
+    await repo.add(data)
+    return scheme(**data.__dict__)
 
 
 async def get_user_by_id(
@@ -32,7 +35,7 @@ async def get_user_by_id(
 
 
 async def get_user_list(
-    scheme: BaseOutModel = UserOut, limit: int = None
+    limit: int = None, scheme: BaseOutModel = UserOut
 ) -> list[BaseOutModel]:
     users = await repo.list(db.UserModel, limit=limit)
     return [scheme(**user.__dict__) for user in users]

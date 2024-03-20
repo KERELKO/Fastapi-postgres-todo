@@ -6,7 +6,7 @@ from src.repository import SQLAlchemyRepository
 from src.database import engine
 from src.schemas import Status
 from src.auth.schemas import UserCreate
-from src.notes.schemas import Note
+from src.notes.schemas import NoteCreate
 
 
 @pytest.fixture
@@ -30,4 +30,4 @@ def make_user(**kwargs):
 
 
 def make_note(**kwargs):
-    return Note(title='10 Push ups', author_id=1, **kwargs)
+    return NoteCreate(title='10 Push ups', author_id=1, **kwargs)

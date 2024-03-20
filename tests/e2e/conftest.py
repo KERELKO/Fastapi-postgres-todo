@@ -14,7 +14,7 @@ def domain():
 def dummy_note_dict():
     return {
         "title": "string",
-        "author_id": 1,
+        "author_id": 2,
         "description": "string",
         "status": "UNCOMPLETED",
         "created_at": "2024-03-19T18:32:56.632Z"

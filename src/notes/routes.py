@@ -1,33 +1,33 @@
 from fastapi import APIRouter
 
-from .schemas import Note
+from .schemas import NoteCreate, NoteOut, NoteUpdate
 from . import service
 
 
 router = APIRouter(tags=['notes'], prefix='/notes')
 
 
-@router.get('/list', response_model=list[Note])
-async def get_note_list(limit: int = None) -> list[Note]:
+@router.get('/list', response_model=list[NoteOut])
+async def get_note_list(limit: int = None) -> list[NoteOut]:
     notes = await service.get_note_list(limit)
     return notes
 
 
-@router.get('/{note_id}', response_model=Note)
-async def get_note(note_id: int) -> Note:
+@router.get('/{note_id}', response_model=NoteOut)
+async def get_note(note_id: int) -> NoteOut:
     note = await service.get_note(note_id)
     return note
 
 
-@router.post('/create', response_model=Note)
-async def create_note(note: Note) -> Note:
-    new_note = await service.create_note(note)
+@router.post('/create', response_model=NoteOut)
+async def create_note(data: NoteCreate) -> NoteOut:
+    new_note = await service.create_note(data)
     return new_note
 
 
 @router.patch('/update/{note_id}', response_model=dict)
-async def update_note(note: Note, note_id: int) -> dict:
-    await service.update_note(note=note, note_id=note_id)
+async def update_note(data: NoteUpdate, note_id: int) -> dict:
+    await service.update_note(data=data, note_id=note_id)
     return {'status': 'OK', 'message': 'Note updated successfully'}
 
 

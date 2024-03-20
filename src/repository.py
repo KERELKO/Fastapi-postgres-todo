@@ -36,10 +36,9 @@ class SQLAlchemyRepository(AbstractRepository):
 
     async def add(self, model: BaseModel) -> int:
         async with self.async_session() as session:
-            async with session.begin():
-                session.add(model)
-                await session.commit()
-                return model.id
+            session.add(model)
+            await session.commit()
+            return model.id
 
     async def get(
         self, model_cls: BaseModel, pk: int
