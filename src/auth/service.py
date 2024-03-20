@@ -1,37 +1,50 @@
 from src.utils.web import raise_404_if_none
 from src.repository import make_sqlalchemy_repo
+from src.schemas import BaseOutModel
 from src import database as db
-from .schemas import User
+
+from .schemas import (
+    BaseUserModel,
+    UserOut,
+    UserUpdate,
+    UserCreate
+)
 
 
 repo = make_sqlalchemy_repo()
 
 
-async def create_user(user_scheme: User) -> int:
-    data = db.UserModel(**user_scheme.__dict__)
+async def create_user(data: BaseUserModel = UserCreate) -> int:
+    data = db.UserModel(**data.__dict__)
     return await repo.add(data)
 
 
-async def get_user_by_id(user_id: int) -> User:
+async def get_user_by_id(
+    user_id: int, scheme: BaseOutModel = UserOut
+) -> BaseOutModel:
     user = await repo.get(db.UserModel, pk=user_id)
     await raise_404_if_none(
         user,
         message=f'User with id \'{user_id}\' does not exist'
     )
-    user_scheme = User(**user.__dict__)
+    user_scheme = scheme(**user.__dict__)
     return user_scheme
 
 
-async def get_user_list(limit: int = None) -> list[User]:
+async def get_user_list(
+    scheme: BaseOutModel = UserOut, limit: int = None
+) -> list[BaseOutModel]:
     users = await repo.list(db.UserModel, limit=limit)
-    return [User(**user.__dict__) for user in users]
+    return [scheme(**user.__dict__) for user in users]
 
 
-async def update_user(user: User, user_id: int) -> None:
+async def update_user(
+    user_id: int, data: BaseUserModel = UserUpdate
+) -> BaseUserModel:
     updated_user = await repo.update(
         db.UserModel,
         pk=user_id,
-        values=user.__dict__
+        values=data.__dict__
     )
     await raise_404_if_none(
         updated_user,

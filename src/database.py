@@ -26,7 +26,7 @@ class UserModel(BaseModel):
     notes: Mapped[List['NoteModel']] = relationship()
 
     def __repr__(self):
-        return f'User(id={self.id} username={self.username} email={self.email})'
+        return f'UserModel(id={self.id} username={self.username} email={self.email})'
 
 
 class NoteModel(BaseModel):
@@ -41,7 +41,7 @@ class NoteModel(BaseModel):
 
     def __repr__(self):
         return (
-            f'Note(id={self.id} '
+            f'NoteModel(id={self.id} '
             f'title={self.title} '
             f'description={self.description} '
             f'status={self.status.value} '

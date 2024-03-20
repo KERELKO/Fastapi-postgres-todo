@@ -11,7 +11,8 @@ asyncio.run(init_models())
 @pytest.mark.asyncio
 async def test_add_user(repo):
     user = UserModel(username='user1', email='user@example.com')
-    await repo.add(user)
+    user_id = await repo.add(user)
+    assert isinstance(user_id, int)
 
 
 @pytest.mark.asyncio

@@ -1,15 +1,7 @@
 import datetime
 
-from src.auth.schemas import User
-from src.notes.schemas import Note, Status
-
-
-def make_user(**kwargs):
-    return User(username='Antony', **kwargs)
-
-
-def make_note(**kwargs):
-    return Note(title='10 Push ups', author_id=1, **kwargs)
+from .conftest import make_note, make_user
+from src.notes.schemas import Status
 
 
 def test_note_data_is_correct():
@@ -21,10 +13,4 @@ def test_note_data_is_correct():
 
 def test_user_data_is_correct():
     user = make_user(email='user@gmail.com')
-    assert user.__str__() == 'username=Antony email=user@gmail.com'
-
-
-def test_notes_are_not_equal():
-    note_1 = make_note()
-    note_2 = make_note()
-    assert note_1 != note_2
+    assert user.email == 'user@gmail.com'

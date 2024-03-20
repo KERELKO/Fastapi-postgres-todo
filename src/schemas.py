@@ -10,3 +10,7 @@ class Status(Enum):
 
 class CustomBaseModel(BaseModel):
     model_config = ConfigDict(populate_by_name=True, extra='ignore')
+
+
+class BaseOutModel(BaseModel):
+    id: int
