@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from src.config import app_configs
 
 from src.auth.routes import router as auth_router
-from src.auth.middleware import TimeElapsedMiddleware
+from src.middleware import TimeElapsedMiddleware
 
 from src.notes.routes import router as notes_router
 

@@ -1,6 +1,7 @@
+import time
+
 from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi import Request
-import time
 
 
 class TimeElapsedMiddleware(BaseHTTPMiddleware):
