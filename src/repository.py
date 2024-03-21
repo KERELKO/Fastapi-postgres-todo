@@ -50,9 +50,6 @@ class SQLAlchemyRepository(AbstractRepository):
     async def update(
         self, model_cls: BaseModel, pk: int, values: dict
     ) -> BaseModel | None:
-        obj = await self.get(model_cls, pk)
-        if not obj:
-            return None
         async with self.async_session() as session:
             stmt = (
                 sqlalchemy.update(model_cls)

@@ -1,13 +1,8 @@
-from pydantic import ValidationError
-
 from src import database as db
 from src.utils.web import raise_404_if_none
-from src.auth.service import get_user_by_id
 from src.repository import make_sqlalchemy_repo
 from src.notes.schemas import (
     BaseNoteModel,
-    NoteCreate,
-    NoteUpdate,
     NoteOut,
     BaseNoteOutModel,
 )
@@ -48,8 +43,11 @@ async def get_note(
     return scheme(**note.__dict__)
 
 
-async def update_note(data: dict, note_id: int) -> None:
-    await repo.update(db.NoteModel, pk=note_id, values=data)
+async def update_note(
+    data: dict, note_id: int, scheme: NoteOut = NoteOut
+) -> NoteOut:
+    updated_note = await repo.update(db.NoteModel, pk=note_id, values=data)
+    return scheme(**updated_note.__dict__)
 
 
 async def delete_note(note_id: int) -> int:

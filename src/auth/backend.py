@@ -32,4 +32,4 @@ auth_backend = AuthenticationBackend(
 fastapi_users = FastAPIUsers[UserModel, int](get_user_manager, [auth_backend])
 
 current_active_user = fastapi_users.current_user(active=True)
-admin = fastapi_users.current_user(superuser=True)
+is_admin = fastapi_users.current_user(superuser=True)

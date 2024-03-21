@@ -4,13 +4,17 @@ from src.schemas import CustomBaseModel
 from fastapi_users import schemas
 
 
-class UserRead(CustomBaseModel, schemas.BaseUser[int]):
+class BaseUser(CustomBaseModel):
     username: str
 
 
-class UserCreate(CustomBaseModel, schemas.BaseUserCreate):
-    username: str
+class UserRead(BaseUser, schemas.BaseUser[int]):
+    pass
 
 
-class UserUpdate(CustomBaseModel, schemas.BaseUserUpdate):
-    username: str
+class UserCreate(BaseUser, schemas.BaseUserCreate):
+    pass
+
+
+class UserUpdate(BaseUser, schemas.BaseUserUpdate):
+    pass
