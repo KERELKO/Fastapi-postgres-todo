@@ -14,13 +14,12 @@ class BaseNoteModel(CustomBaseModel):
     pass
 
 
-class BaseNoteOutModel(BaseOutModel):
-    pass
+class BaseNoteOutModel(BaseOutModel,  BaseNoteModel):
+    author_id: int
 
 
 class NoteCreate(BaseNoteModel):
     title: str
-    author_id: int
     description: Optional[str] = None
     status: Status = Status.UNCOMPLETED
     created_at: Optional[datetime.datetime] = Field(

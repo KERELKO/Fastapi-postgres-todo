@@ -75,7 +75,20 @@ class SQLAlchemyRepository(AbstractRepository):
             await session.commit()
             return pk
 
-    async def list(
+    async def filter_by(
+        self, model_cls: BaseModel, filters: dict, limit: int = None
+    ) -> list[BaseModel | None]:
+        async with self.async_session() as session:
+            stmt = sqlalchemy.select(model_cls)
+            for attr, value in filters.items():
+                stmt = stmt.where(getattr(model_cls, attr) == value)
+            if limit:
+                stmt = stmt.limit(limit)
+            query = await session.execute(stmt)
+            objects = query.scalars().all()
+            return objects
+
+    async def get_all(
         self, model_cls: BaseModel, limit: int = None
     ) -> list[BaseModel | None]:
         async with self.async_session() as session:

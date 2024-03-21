@@ -1,25 +1,16 @@
-from src.schemas import CustomBaseModel, BaseOutModel
+from src.schemas import CustomBaseModel
 
 
-class BaseUserModel(CustomBaseModel):
-    pass
+from fastapi_users import schemas
 
 
-class UserCreate(BaseUserModel):
+class UserRead(CustomBaseModel, schemas.BaseUser[int]):
     username: str
-    email: str | None = None
-
-    def __str__(self):
-        return f'UserCreateScheme(username={self.username} email={self.email})'
 
 
-class UserOut(BaseOutModel, BaseUserModel):
+class UserCreate(CustomBaseModel, schemas.BaseUserCreate):
     username: str
-    email: str | None = None
-
-    def __str__(self):
-        return f'UserOutScheme(id={self.id} username={self.username} email={self.email})'
 
 
-class UserUpdate(UserCreate):
-    pass
+class UserUpdate(CustomBaseModel, schemas.BaseUserUpdate):
+    username: str
