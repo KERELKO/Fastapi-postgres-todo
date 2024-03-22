@@ -2,9 +2,10 @@ import datetime
 
 import pytest
 
-from src.repository import SQLAlchemyRepository
-from src.database import engine
-from src.schemas import Status
+from src.core.repository import SQLAlchemyRepository
+from src.core.database import engine
+from src.core.schemas import Status
+
 from src.auth.schemas import UserCreate
 from src.notes.schemas import NoteCreate
 

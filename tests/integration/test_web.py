@@ -2,7 +2,7 @@ import asyncio
 import pytest
 import httpx
 
-from src.database import init_models
+from src.core.database import init_models
 from tests.unit.conftest import make_user
 
 
@@ -35,7 +35,7 @@ def test_can_create_note(dummy_note_dict, domain):
     assert response.status_code == 200
 
 
-def test_can_not_create_note(dummy_note_dict, domain):
+def test_can_not_create_note_invalid_author_id(dummy_note_dict, domain):
     data = dummy_note_dict
     data['author_id'] = 0
     with pytest.raises(httpx.HTTPError):

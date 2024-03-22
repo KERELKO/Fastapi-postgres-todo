@@ -9,7 +9,7 @@ from fastapi_users.authentication import (
     JWTStrategy,
 )
 
-from src.database import UserModel
+from src.core.database import UserModel
 from .manager import get_user_manager
 
 

@@ -1,6 +1,6 @@
-from src import database as db
+from src.core import database as db
 from src.utils.web import raise_404_if_none
-from src.repository import make_sqlalchemy_repo
+from src.core.repository import make_sqlalchemy_repo
 from src.notes.schemas import (
     BaseNoteModel,
     NoteOut,
@@ -36,7 +36,7 @@ async def get_note(
     note_id: int, scheme: BaseNoteModel = NoteOut
 ) -> BaseNoteOutModel:
     note = await repo.get(db.NoteModel, note_id)
-    await raise_404_if_none(
+    raise_404_if_none(
         note,
         message=f'Note with id \'{note_id}\' not found'
     )

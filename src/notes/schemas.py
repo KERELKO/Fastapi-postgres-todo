@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import Field
 
-from src.schemas import (
+from src.core.schemas import (
     CustomBaseModel,
     BaseOutModel,
     Status,

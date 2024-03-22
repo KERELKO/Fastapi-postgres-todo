@@ -2,7 +2,7 @@ import asyncio
 
 import pytest
 
-from src.database import UserModel, NoteModel, init_models
+from src.core.database import UserModel, NoteModel, init_models
 
 
 asyncio.run(init_models())

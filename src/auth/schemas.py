@@ -1,5 +1,4 @@
-from src.schemas import CustomBaseModel
-
+from src.core.schemas import CustomBaseModel
 
 from fastapi_users import schemas
 

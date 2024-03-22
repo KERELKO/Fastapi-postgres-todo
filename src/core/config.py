@@ -1,7 +1,7 @@
 from typing import Any
 from pydantic_settings import BaseSettings
 
-from src.constants import Environment, DESCRIPTION
+from .constants import Environment, DESCRIPTION
 
 
 class Config(BaseSettings):

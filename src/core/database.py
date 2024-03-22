@@ -2,14 +2,21 @@ import datetime
 from typing import AsyncGenerator, List
 
 from fastapi import Depends
-from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
+from fastapi_users_db_sqlalchemy import (
+    SQLAlchemyBaseUserTable,
+    SQLAlchemyUserDatabase,
+)
 
 from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
+from sqlalchemy.ext.asyncio import (
+    create_async_engine,
+    AsyncSession,
+    async_sessionmaker,
+)
 
-from src.config import settings
-from src.schemas import Status
+from src.core.config import settings
+from src.core.schemas import Status
 
 
 DATABASE_URL = str(settings.DATABASE_URL)
