@@ -14,7 +14,7 @@ repo = make_sqlalchemy_repo()
 async def get_filtered_notes(
     filters: dict, limit: int = None, scheme: BaseNoteModel = NoteOut,
 ) -> list[BaseNoteModel]:
-    notes = await repo.filter_by(db.NoteModel, filters, limit)
+    notes = await repo.filter_all(db.NoteModel, filters, limit)
     return [scheme(**note.__dict__) for note in notes]
 
 
@@ -36,9 +36,8 @@ async def get_note(
     note_id: int, scheme: BaseNoteModel = NoteOut
 ) -> BaseNoteOutModel:
     note = await repo.get(db.NoteModel, note_id)
-    raise_404_if_none(
-        note,
-        message=f'Note with id \'{note_id}\' not found'
+    await raise_404_if_none(
+        note, message=f'Note with id \'{note_id}\' not found'
     )
     return scheme(**note.__dict__)
 
@@ -53,7 +52,6 @@ async def update_note(
 async def delete_note(note_id: int) -> int:
     deleted_note_id = await repo.delete(db.NoteModel, pk=note_id)
     await raise_404_if_none(
-        deleted_note_id,
-        message=f'Note with id \'{note_id}\' not found'
+        deleted_note_id, message=f'Note with id \'{note_id}\' not found'
     )
     return deleted_note_id

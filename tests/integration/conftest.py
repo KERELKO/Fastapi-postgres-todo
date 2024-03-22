@@ -1,21 +1,36 @@
+import datetime
 import pytest
 
-from src.core.config import settings
-
-DOMAIN = settings.DOMAIN
-
-
-@pytest.fixture
-def domain():
-    return DOMAIN
+from src.core.database import NoteModel, UserModel
+from src.core.repository import AbstractRepository, make_sqlalchemy_repo
+from src.core.schemas import Status
 
 
 @pytest.fixture
-def dummy_note_dict():
-    return {
-        "title": "string",
-        "author_id": 2,
-        "description": "string",
-        "status": "UNCOMPLETED",
-        "created_at": "2024-03-19T18:32:56.632Z"
-    }
+def repo(repository: AbstractRepository = make_sqlalchemy_repo):
+    return repository()
+
+
+@pytest.fixture
+def get_db_user(**kwargs):
+    return UserModel(
+        username='user1',
+        email='user@example.com',
+        hashed_password='1234',
+        is_active=True,
+        is_superuser=False,
+        is_verified=False,
+        **kwargs
+    )
+
+
+@pytest.fixture
+def get_db_note(**kwargs):
+    return NoteModel(
+        title='Test',
+        author_id=1,
+        description='Simple description',
+        status=Status.COMPLETED,
+        created_at=datetime.datetime.now(),
+        **kwargs
+    )

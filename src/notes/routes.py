@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from src.auth.backend import current_active_user, is_admin
+from src.auth.config import current_active_user, is_admin
 from src.core.database import UserModel
 from .schemas import NoteCreate, NoteOut, NoteUpdate
 from . import service

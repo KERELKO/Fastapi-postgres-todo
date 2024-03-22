@@ -14,7 +14,7 @@ class BaseNoteModel(CustomBaseModel):
     pass
 
 
-class BaseNoteOutModel(BaseOutModel,  BaseNoteModel):
+class BaseNoteOutModel(BaseOutModel, BaseNoteModel):
     author_id: int
 
 

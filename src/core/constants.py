@@ -7,11 +7,11 @@ class Environment(str, Enum):
     TESTING: str = 'TESTING'
 
     @property
-    def is_debug(self):
+    def is_debug(self) -> bool:
         return self in (self.LOCAL, self.TESTING)
 
     @property
-    def is_deployed(self):
+    def is_deployed(self) -> bool:
         return self in (self.PRODUCTION,)
 
 

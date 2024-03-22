@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.exceptions import ApplicationException
+from src.core.exceptions import ApplicationException
 
 
 @dataclass(eq=False)

@@ -1,10 +1,8 @@
 from abc import ABC, abstractmethod
 
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import sessionmaker
 import sqlalchemy
 
-from .database import BaseModel, engine
+from .database import BaseModel, async_session_maker
 
 
 class AbstractRepository(ABC):
@@ -27,18 +25,14 @@ class AbstractRepository(ABC):
 
 
 class SQLAlchemyRepository(AbstractRepository):
-    def __init__(self, engine) -> None:
-        self.async_session = sessionmaker(
-            engine,
-            class_=AsyncSession,
-            expire_on_commit=False
-        )
+    def __init__(self, session) -> None:
+        self.async_session = session
 
-    async def add(self, model: BaseModel) -> int:
+    async def add(self, model_cls: BaseModel) -> int:
         async with self.async_session() as session:
-            session.add(model)
+            session.add(model_cls)
             await session.commit()
-            return model.id
+            return model_cls.id
 
     async def get(
         self, model_cls: BaseModel, pk: int
@@ -97,5 +91,5 @@ class SQLAlchemyRepository(AbstractRepository):
             return objects
 
 
-def make_sqlalchemy_repo(engine=engine):
-    return SQLAlchemyRepository(engine)
+def make_sqlalchemy_repo(session=async_session_maker):
+    return SQLAlchemyRepository(session)

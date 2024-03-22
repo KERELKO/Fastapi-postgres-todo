@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  web:
+    build: .
+    command: uvicorn src.main:create_app --reload --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    environment:
+      - SERCET="SECRET"
+      - DATABASE_URL="sqlite+aiosqlite:///db.sqlite3"
