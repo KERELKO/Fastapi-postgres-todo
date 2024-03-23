@@ -1,5 +1,5 @@
-import datetime
-from typing import AsyncGenerator, List
+from datetime import datetime
+from typing import AsyncGenerator, Optional
 
 from fastapi import Depends
 from fastapi_users_db_sqlalchemy import (
@@ -7,7 +7,7 @@ from fastapi_users_db_sqlalchemy import (
     SQLAlchemyUserDatabase,
 )
 
-from sqlalchemy import String, ForeignKey
+from sqlalchemy import DateTime, NullPool, String, ForeignKey, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
@@ -19,8 +19,8 @@ from src.core.config import settings
 from src.core.schemas import Status
 
 
-DATABASE_URL = str(settings.DATABASE_URL)
-engine = create_async_engine(DATABASE_URL)
+DATABASE_URL = settings.DATABASE_URL
+engine = create_async_engine(DATABASE_URL, poolclass=NullPool)
 async_session_maker = async_sessionmaker(
     engine, class_=AsyncSession, expire_on_commit=False
 )
@@ -35,7 +35,7 @@ class UserModel(SQLAlchemyBaseUserTable[int], BaseModel):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str]
-    notes: Mapped[List['NoteModel']] = relationship()
+    notes: Mapped[list['NoteModel']] = relationship()
 
     def __repr__(self):
         return f'UserModel(id={self.id} username={self.username} email={self.email})'
@@ -48,7 +48,7 @@ class NoteModel(BaseModel):
     title: Mapped[str] = mapped_column(String(50))
     description: Mapped[str]
     status: Mapped[Status]
-    created_at: Mapped[datetime.datetime]
+    created_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=func.now())
     author_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
 
     def __repr__(self):

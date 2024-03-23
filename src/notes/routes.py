@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 
 from src.auth.config import current_active_user, is_admin
 from src.core.database import UserModel
@@ -27,9 +27,9 @@ async def get_note_list(
 
 @router.get('/{note_id}', response_model=NoteOut)
 async def get_note(
-    note_id: int, user: UserModel = Depends(is_admin)
+    note_id: int, user: UserModel = Depends(current_active_user),
 ) -> NoteOut:
-    note = await service.get_note(note_id)
+    note = await service.get_note(note_id, user)
     return note
 
 
@@ -49,10 +49,8 @@ async def update_note(
     note_id: int,
     user: UserModel = Depends(current_active_user)
 ) -> NoteOut:
-    if note_id != user.id:
-        raise HTTPException(403, detail='You don\'t have permissions')
     updated_note = await service.update_note(
-        data=data.__dict__, note_id=note_id
+        data=data.__dict__, note_id=note_id, user=user
     )
     return updated_note
 
@@ -61,7 +59,8 @@ async def update_note(
 async def delete_note(
     note_id: int, user: UserModel = Depends(current_active_user)
 ) -> dict:
-    if note_id != user.id:
-        raise HTTPException(403, detail='You don\'t have permissions')
-    await service.delete_note(note_id)
-    return {'status': 'OK', 'message': 'Note deleted successfully'}
+    await service.delete_note(note_id, user)
+    return {
+        'status': 'OK',
+        'message': f'Note with id \'{note_id}\' was deleted successfully'
+    }

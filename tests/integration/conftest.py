@@ -1,4 +1,4 @@
-import datetime
+import uuid
 import pytest
 
 from src.core.database import NoteModel, UserModel
@@ -14,8 +14,8 @@ def repo(repository: AbstractRepository = make_sqlalchemy_repo):
 @pytest.fixture
 def get_db_user(**kwargs):
     return UserModel(
-        username='user1',
-        email='user@example.com',
+        username=str(lambda: uuid.uuid4()),
+        email=str(lambda: uuid.uuid4()) + '@example.com',
         hashed_password='1234',
         is_active=True,
         is_superuser=False,
@@ -31,6 +31,5 @@ def get_db_note(**kwargs):
         author_id=1,
         description='Simple description',
         status=Status.COMPLETED,
-        created_at=datetime.datetime.now(),
         **kwargs
     )

@@ -1,13 +1,28 @@
 version: "3.7"
 
 services:
-  web:
+  db:
+    image: postgres:latest
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  
+  app:
     build: .
-    command: uvicorn src.main:create_app --reload --port 8000
+    command: "uvicorn src.main:create_app --reload --host 0.0.0.0 --port 8000"
     ports:
       - "8000:8000"
     volumes:
       - .:/code
     environment:
-      - SERCET="SECRET"
-      - DATABASE_URL="sqlite+aiosqlite:///db.sqlite3"
+      - SECRET=SECRET
+      # - DATABASE_URL=sqlite+aiosqlite:///db.sqlite3
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+    depends_on:
+      - db

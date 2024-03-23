@@ -8,7 +8,7 @@ from .database import BaseModel, async_session_maker
 class AbstractRepository(ABC):
 
     @abstractmethod
-    def add(self, model_cls):
+    def add(self, model_instance):
         raise NotImplementedError
 
     @abstractmethod
@@ -28,11 +28,11 @@ class SQLAlchemyRepository(AbstractRepository):
     def __init__(self, session) -> None:
         self.async_session = session
 
-    async def add(self, model_cls: BaseModel) -> int:
+    async def add(self, model_instance: BaseModel) -> int:
         async with self.async_session() as session:
-            session.add(model_cls)
+            session.add(model_instance)
             await session.commit()
-            return model_cls.id
+            return model_instance.id
 
     async def get(
         self, model_cls: BaseModel, pk: int
@@ -43,7 +43,7 @@ class SQLAlchemyRepository(AbstractRepository):
 
     async def update(
         self, model_cls: BaseModel, pk: int, values: dict
-    ) -> BaseModel | None:
+    ) -> BaseModel:
         async with self.async_session() as session:
             stmt = (
                 sqlalchemy.update(model_cls)
@@ -68,7 +68,7 @@ class SQLAlchemyRepository(AbstractRepository):
 
     async def filter_by(
         self, model_cls: BaseModel, filters: dict, limit: int = None
-    ) -> list[BaseModel | None]:
+    ) -> list[BaseModel]:
         async with self.async_session() as session:
             stmt = sqlalchemy.select(model_cls)
             for attr, value in filters.items():
@@ -81,7 +81,7 @@ class SQLAlchemyRepository(AbstractRepository):
 
     async def get_all(
         self, model_cls: BaseModel, limit: int = None
-    ) -> list[BaseModel | None]:
+    ) -> list[BaseModel]:
         async with self.async_session() as session:
             query = sqlalchemy.select(model_cls)
             if limit:

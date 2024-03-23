@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from src.core.config import app_configs
-
 from src.auth.routes import user_router
 from src.auth.routes import router as auth_router
 from src.core.middleware import TimeElapsedMiddleware
