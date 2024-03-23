@@ -17,8 +17,8 @@ class Config(BaseSettings):
     POSTGRES_PASSWORD: str = os.getenv('POSTGRES_PASSWORD')
     POSTGRES_PORT: int = 5432
 
-    DATABASE_URL: str = f'{POSTGRES}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}'
-    # DATABASE_URL: str = 'sqlite+aiosqlite:///db.sqlite3'
+    # DATABASE_URL: str = f'{POSTGRES}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}'
+    DATABASE_URL: str = 'sqlite+aiosqlite:///db.sqlite3'
     ENV: Environment = Environment.LOCAL
     LOG_LEVEL: str = 'INFO'
     DOMAIN: str = 'http://127.0.0.1:8000'

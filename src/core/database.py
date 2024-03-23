@@ -16,7 +16,6 @@ from sqlalchemy.ext.asyncio import (
 )
 
 from src.core.config import settings
-from src.core.schemas import Status
 
 
 DATABASE_URL = settings.DATABASE_URL
@@ -47,7 +46,7 @@ class TaskModel(BaseModel):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(50))
     description: Mapped[str]
-    status: Mapped[Status]
+    completed: Mapped[bool]
     created_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=func.now())
     author_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
 
@@ -56,7 +55,7 @@ class TaskModel(BaseModel):
             f'TaskModel(id={self.id} '
             f'title={self.title} '
             f'description={self.description} '
-            f'status={self.status.value} '
+            f'completed={self.completed} '
             f'created_at={self.created_at})'
         )
 

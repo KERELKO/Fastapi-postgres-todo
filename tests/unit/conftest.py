@@ -4,7 +4,6 @@ import pytest
 
 from src.core.repository import AbstractRepository, make_sqlalchemy_repo
 from src.core.database import UserModel, TaskModel
-from src.core.schemas import Status
 
 from src.auth.schemas import UserCreate
 from src.tasks.schemas import TaskCreate
@@ -33,7 +32,7 @@ def get_TaskCreate(**kwargs):
     return TaskCreate(
         title='10 Push ups',
         author_id=1,
-        status='COMPLETED',
+        completed=True,
         **kwargs
     )
 
@@ -57,7 +56,7 @@ def get_db_task(**kwargs):
         title='Test',
         author_id=1,
         description='Simple description',
-        status=Status.COMPLETED,
+        completed=True,
         created_at=datetime.datetime.now(),
         **kwargs
     )

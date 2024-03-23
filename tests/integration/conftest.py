@@ -3,7 +3,6 @@ import pytest
 
 from src.core.database import TaskModel, UserModel
 from src.core.repository import AbstractRepository, make_sqlalchemy_repo
-from src.core.schemas import Status
 
 
 @pytest.fixture
@@ -30,6 +29,6 @@ def get_db_task(**kwargs):
         title='Test',
         author_id=1,
         description='Simple description',
-        status=Status.COMPLETED,
+        completed=True,
         **kwargs
     )

@@ -3,7 +3,6 @@ from typing import Optional
 from src.core.schemas import (
     CustomBaseModel,
     BaseOutModel,
-    Status,
 )
 
 
@@ -18,10 +17,10 @@ class BaseTaskOutModel(BaseOutModel, BaseTaskModel):
 class TaskCreate(BaseTaskModel):
     title: str
     description: Optional[str] = None
-    status: Status = Status.UNCOMPLETED
+    completed: bool = False
 
     def __str__(self):
-        return f'[{self.status.value}]:{self.title}'
+        return f'[{self.completed}]:{self.title}'
 
 
 class TaskRead(TaskCreate, BaseTaskOutModel):

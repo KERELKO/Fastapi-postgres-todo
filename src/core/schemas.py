@@ -1,11 +1,4 @@
-from enum import Enum
-
 from pydantic import BaseModel, ConfigDict
-
-
-class Status(Enum):
-    COMPLETED = 'COMPLETED'
-    UNCOMPLETED = 'UNCOMPLETED'
 
 
 class CustomBaseModel(BaseModel):

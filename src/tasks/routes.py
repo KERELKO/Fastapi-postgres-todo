@@ -11,9 +11,12 @@ router = APIRouter(tags=['tasks'], prefix='/tasks')
 
 @router.get('/my', response_model=list[TaskRead])
 async def my_tasks(
-    user: UserModel = Depends(current_active_user)
+    completed: bool = None, user: UserModel = Depends(current_active_user)
 ) -> list[TaskRead]:
-    tasks = await service.get_filtered_tasks(filters={'author_id': user.id})
+    filters = {'author_id': user.id}
+    if completed is not None:
+        filters['completed'] = completed
+    tasks = await service.get_filtered_tasks(filters=filters)
     return tasks
 
 
@@ -61,6 +64,6 @@ async def delete_task(
 ) -> dict:
     await service.delete_task(task_id, user)
     return {
-        'status': 'OK',
+        'completed': 'OK',
         'message': f'task with id \'{task_id}\' was deleted successfully'
     }
