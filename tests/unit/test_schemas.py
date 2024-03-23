@@ -1,8 +1,8 @@
-from src.notes.schemas import Status
+from src.tasks.schemas import Status
 
 
-def test_note_data_is_correct(get_NoteCreate):
-    assert get_NoteCreate.status == Status.COMPLETED
+def test_task_data_is_correct(get_TaskCreate):
+    assert get_TaskCreate.status == Status.COMPLETED
 
 
 def test_user_data_is_correct(get_UserCreate):

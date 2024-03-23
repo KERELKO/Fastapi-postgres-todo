@@ -16,7 +16,7 @@ def domain():
 
 
 @pytest.fixture
-def note_json():
+def task_json():
     return {
         'title': 'string',
         'author_id': 2,

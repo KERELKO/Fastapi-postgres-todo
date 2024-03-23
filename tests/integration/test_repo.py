@@ -1,6 +1,6 @@
 import pytest
 
-from src.core.database import UserModel, NoteModel
+from src.core.database import UserModel, TaskModel
 
 
 @pytest.mark.asyncio
@@ -16,9 +16,9 @@ async def test_get_user(repo):
 
 
 @pytest.mark.asyncio
-async def test_add_note_and_get_note(repo, get_db_note):
-    note_id = await repo.add(get_db_note)
-    assert isinstance(note_id, int)
+async def test_add_task_and_get_task(repo, get_db_task):
+    task_id = await repo.add(get_db_task)
+    assert isinstance(task_id, int)
 
-    note = await repo.get(NoteModel, note_id)
-    assert note is not None
+    task = await repo.get(TaskModel, task_id)
+    assert task is not None

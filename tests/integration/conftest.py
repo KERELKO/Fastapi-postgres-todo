@@ -1,7 +1,7 @@
 import uuid
 import pytest
 
-from src.core.database import NoteModel, UserModel
+from src.core.database import TaskModel, UserModel
 from src.core.repository import AbstractRepository, make_sqlalchemy_repo
 from src.core.schemas import Status
 
@@ -25,8 +25,8 @@ def get_db_user(**kwargs):
 
 
 @pytest.fixture
-def get_db_note(**kwargs):
-    return NoteModel(
+def get_db_task(**kwargs):
+    return TaskModel(
         title='Test',
         author_id=1,
         description='Simple description',

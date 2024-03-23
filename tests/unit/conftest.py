@@ -3,11 +3,11 @@ import datetime
 import pytest
 
 from src.core.repository import AbstractRepository, make_sqlalchemy_repo
-from src.core.database import UserModel, NoteModel
+from src.core.database import UserModel, TaskModel
 from src.core.schemas import Status
 
 from src.auth.schemas import UserCreate
-from src.notes.schemas import NoteCreate
+from src.tasks.schemas import TaskCreate
 
 
 @pytest.fixture
@@ -29,8 +29,8 @@ def get_UserCreate(**kwargs):
 
 
 @pytest.fixture
-def get_NoteCreate(**kwargs):
-    return NoteCreate(
+def get_TaskCreate(**kwargs):
+    return TaskCreate(
         title='10 Push ups',
         author_id=1,
         status='COMPLETED',
@@ -52,8 +52,8 @@ def get_db_user(**kwargs):
 
 
 @pytest.fixture
-def get_db_note(**kwargs):
-    return NoteModel(
+def get_db_task(**kwargs):
+    return TaskModel(
         title='Test',
         author_id=1,
         description='Simple description',

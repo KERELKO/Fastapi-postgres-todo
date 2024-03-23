@@ -35,14 +35,14 @@ class UserModel(SQLAlchemyBaseUserTable[int], BaseModel):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str]
-    notes: Mapped[list['NoteModel']] = relationship()
+    tasks: Mapped[list['TaskModel']] = relationship()
 
     def __repr__(self):
         return f'UserModel(id={self.id} username={self.username} email={self.email})'
 
 
-class NoteModel(BaseModel):
-    __tablename__ = 'notes'
+class TaskModel(BaseModel):
+    __tablename__ = 'tasks'
 
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(50))
@@ -53,7 +53,7 @@ class NoteModel(BaseModel):
 
     def __repr__(self):
         return (
-            f'NoteModel(id={self.id} '
+            f'TaskModel(id={self.id} '
             f'title={self.title} '
             f'description={self.description} '
             f'status={self.status.value} '

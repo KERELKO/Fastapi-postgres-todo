@@ -4,7 +4,7 @@ from src.auth.routes import user_router
 from src.auth.routes import router as auth_router
 from src.core.middleware import TimeElapsedMiddleware
 
-from src.notes.routes import router as notes_router
+from src.tasks.routes import router as tasks_router
 
 
 def create_app():
@@ -13,7 +13,7 @@ def create_app():
     # routes
     app.include_router(auth_router)
     app.include_router(user_router)
-    app.include_router(notes_router)
+    app.include_router(tasks_router)
 
     # middlewares
     app.add_middleware(middleware_class=TimeElapsedMiddleware)

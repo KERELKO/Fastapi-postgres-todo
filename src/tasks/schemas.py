@@ -7,15 +7,15 @@ from src.core.schemas import (
 )
 
 
-class BaseNoteModel(CustomBaseModel):
+class BaseTaskModel(CustomBaseModel):
     pass
 
 
-class BaseNoteOutModel(BaseOutModel, BaseNoteModel):
+class BaseTaskOutModel(BaseOutModel, BaseTaskModel):
     author_id: int
 
 
-class NoteCreate(BaseNoteModel):
+class TaskCreate(BaseTaskModel):
     title: str
     description: Optional[str] = None
     status: Status = Status.UNCOMPLETED
@@ -24,9 +24,9 @@ class NoteCreate(BaseNoteModel):
         return f'[{self.status.value}]:{self.title}'
 
 
-class NoteOut(NoteCreate, BaseNoteOutModel):
+class TaskRead(TaskCreate, BaseTaskOutModel):
     pass
 
 
-class NoteUpdate(NoteCreate):
+class TaskUpdate(TaskCreate):
     pass
