@@ -1,7 +1,5 @@
-.env
 .dockerignore
 *.pyc
 *.ini
 __pycache__/
 data/
-db.sqlite3
