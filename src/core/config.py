@@ -1,5 +1,4 @@
 import os
-from typing import Any
 
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
@@ -17,8 +16,11 @@ class Config(BaseSettings):
     POSTGRES_PASSWORD: str = os.getenv('POSTGRES_PASSWORD')
     POSTGRES_PORT: int = 5432
 
-    # DATABASE_URL: str = f'{POSTGRES}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}'
-    DATABASE_URL: str = 'sqlite+aiosqlite:///db.sqlite3'
+    # you can use sqlite+aiosqlite for testing in local environment
+    # DATABASE_URL: str = 'sqlite+aiosqlite:///db.sqlite3'
+    DATABASE_URL: str = f'{POSTGRES}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}'
+
+    # environment
     ENV: Environment = Environment.LOCAL
     LOG_LEVEL: str = 'INFO'
     DOMAIN: str = 'http://127.0.0.1:8000'
@@ -26,7 +28,7 @@ class Config(BaseSettings):
 
 settings = Config()
 
-app_configs: dict[str, Any] = {
+app_configs: dict[str, any] = {
     'title': 'FastAPI todo app API',
     'description': DESCRIPTION,
 }

@@ -9,8 +9,9 @@ services:
       - POSTGRES_HOST=db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  
-  app:
+      - POSTGRES_PORT=5432
+
+  api:
     build: .
     command: "uvicorn src.main:create_app --reload --host 0.0.0.0 --port 8000"
     ports:
@@ -19,7 +20,6 @@ services:
       - .:/code
     environment:
       - SECRET=SECRET
-      # - DATABASE_URL=sqlite+aiosqlite:///db.sqlite3
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_HOST=db
