@@ -2,7 +2,7 @@ import uuid
 import pytest
 
 from src.core.database import TaskModel, UserModel
-from src.core.repository import make_sqlalchemy_repo
+from src.core.repositories.sqlalchemy import make_sqlalchemy_repo
 from src.core.repositories.base import AbstractRepository
 
 

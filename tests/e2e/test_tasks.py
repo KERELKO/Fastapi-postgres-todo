@@ -8,7 +8,7 @@ def test_can_create_task(user_json, task_json, domain):
             'password': user_json['password'],
         }
         login_response = client.post(
-            domain + '/auth/jwt/login', data=user_login_json
+            domain + '/auth/login', data=user_login_json
         )
         cookie = login_response.cookies
         response = client.post(

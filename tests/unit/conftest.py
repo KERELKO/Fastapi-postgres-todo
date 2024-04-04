@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from src.core.repository import AbstractRepository, make_sqlalchemy_repo
+from src.core.repositories import base, sqlalchemy
 from src.core.database import UserModel, TaskModel
 
 from src.auth.schemas import UserCreate
@@ -10,7 +10,9 @@ from src.tasks.schemas import TaskCreate
 
 
 @pytest.fixture
-def repo(repository: AbstractRepository = make_sqlalchemy_repo):
+def repo(
+    repository: base.AbstractRepository = sqlalchemy.make_sqlalchemy_repo
+):
     return repository()
 
 

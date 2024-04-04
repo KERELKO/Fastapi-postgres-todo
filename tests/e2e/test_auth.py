@@ -17,14 +17,13 @@ def test_can_login_and_logout(domain, user_json):
             'password': user_json['password'],
         }
         login_response = client.post(
-            domain + '/auth/jwt/login', data=user_login_json
+            domain + '/auth/login', data=user_login_json
         )
         assert login_response.status_code == 204
-
         cookie = login_response.cookies
 
         logout_response = client.post(
-            domain + '/auth/jwt/logout',
+            domain + '/auth/logout',
             headers={
                 'Cookie': f'fastapiusersauth={cookie["fastapiusersauth"]}'
             }
@@ -40,10 +39,9 @@ def test_can_get_current_user(domain, user_json, pk: int = 1):
             'password': user_json['password'],
         }
         login_response = client.post(
-            domain + '/auth/jwt/login', data=user_login_json
+            domain + '/auth/login', data=user_login_json
         )
         cookie = login_response.cookies
-
         current_user_response = client.get(
             domain + '/users/me',
             headers={

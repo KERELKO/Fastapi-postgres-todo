@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends
 from src.auth.config import current_active_user, is_admin
 from src.auth.schemas import UserRead
 from src.services.tasks import TasksService
+
 from .schemas import TaskCreate, TaskRead, TaskUpdate
 
 
@@ -12,12 +13,14 @@ service = TasksService()
 
 @router.get('/my', response_model=list[TaskRead])
 async def my_tasks(
-    completed: bool = None, user: UserRead = Depends(current_active_user)
+    completed: bool = False,
+    limit: int | None = None,
+    user: UserRead = Depends(current_active_user)
 ) -> list[TaskRead]:
     filters = {'author_id': user.id}
     if completed is not None:
         filters['completed'] = completed
-    tasks = await service.get_filtered_tasks(filters=filters)
+    tasks = await service.filter_tasks(filters=filters, limit=limit)
     return tasks
 
 
@@ -53,7 +56,7 @@ async def update_task(
     user: UserRead = Depends(current_active_user)
 ) -> TaskRead:
     updated_task = await service.update_task(
-        values=values.__dict__, task_id=task_id, user=user
+        values=values.model_dump(), task_id=task_id, user=user
     )
     return updated_task
 

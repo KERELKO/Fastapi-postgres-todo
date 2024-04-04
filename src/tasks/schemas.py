@@ -6,11 +6,11 @@ from src.core.schemas import (
 )
 
 
-class BaseTaskModel(CustomBaseSchema):
-    pass
+class BaseTaskSchema(CustomBaseSchema):
+    ...
 
 
-class TaskCreate(BaseTaskModel):
+class TaskCreate(BaseTaskSchema):
     title: str
     author_id: int
     description: Optional[str] = None
@@ -26,3 +26,10 @@ class TaskRead(TaskCreate, BaseOutSchema):
 
 class TaskUpdate(TaskCreate):
     pass
+
+
+class TaskFilters(BaseTaskSchema):
+    title: str | None = None
+    completed: bool | None = None
+    author_id: int | None = None
+    limit: int | None = None

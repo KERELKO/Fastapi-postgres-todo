@@ -1,6 +1,6 @@
 import sqlalchemy as sql
 
-from src.core.database import TaskModel, UserModel, async_session_maker
+from src.core.database import TaskModel, async_session_maker
 from src.core.repositories.base import AbstractRepository
 
 
@@ -39,20 +39,18 @@ class SQLAlchemyTasksRepository(BaseSQLAlchemyRepository, AbstractRepository):
             await session.execute(stmt)
             await session.commit()
 
+    async def filter_by(
+        self, filters: dict, limit: int = None
+    ) -> list[TaskModel]:
+        stmt = sql.select(TaskModel)
+        for key, value in filters.items():
+            stmt = stmt.where(getattr(TaskModel, key) == value)
+        if limit:
+            stmt = stmt.limit(limit)
+        async with self.async_session_factory() as session:
+            tasks = await session.scalars(stmt)
+            return tasks
 
-class SQLAlchemyUsersRepository(BaseSQLAlchemyRepository, AbstractRepository):
-    async def get(self, id: int) -> UserModel:
-        ...
 
-    async def create(self) -> int:
-        '''Returns id of the created user'''
-        ...
-
-    async def get_all(self) -> list[UserModel]:
-        ...
-
-    async def update(self):
-        ...
-
-    async def delete(self):
-        ...
+def make_sqlalchemy_repo(session_factory=async_session_maker):
+    return SQLAlchemyTasksRepository(session_factory)
