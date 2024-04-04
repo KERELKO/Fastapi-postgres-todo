@@ -1,9 +1,9 @@
-from src.core.schemas import CustomBaseModel
+from src.core.schemas import CustomBaseSchema
 
 from fastapi_users import schemas
 
 
-class BaseUser(CustomBaseModel):
+class BaseUser(CustomBaseSchema):
     username: str
 
 

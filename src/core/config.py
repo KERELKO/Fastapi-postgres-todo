@@ -16,9 +16,9 @@ class Config(BaseSettings):
     POSTGRES_PASSWORD: str = os.getenv('POSTGRES_PASSWORD')
     POSTGRES_PORT: int = 5432
 
-    # you can use sqlite+aiosqlite for testing in local environment
-    # DATABASE_URL: str = 'sqlite+aiosqlite:///db.sqlite3'
-    DATABASE_URL: str = f'{POSTGRES}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}'
+    # Use sqlite+aiosqlite for developing in local environment
+    DATABASE_URL: str = 'sqlite+aiosqlite:///db.sqlite3'
+    # DATABASE_URL: str = f'{POSTGRES}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}'
 
     # environment
     ENV: Environment = Environment.LOCAL

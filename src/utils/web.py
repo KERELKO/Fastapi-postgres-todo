@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
 
-async def raise_404_if_none(obj: any, message: str = None) -> None:
+def raise_404_if_none(obj: any, message: str = None) -> None:
     if message:
         detail = message
     else:

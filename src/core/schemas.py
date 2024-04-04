@@ -1,9 +1,9 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class CustomBaseModel(BaseModel):
+class CustomBaseSchema(BaseModel):
     model_config = ConfigDict(populate_by_name=True, extra='ignore')
 
 
-class BaseOutModel(BaseModel):
+class BaseOutSchema(BaseModel):
     id: int

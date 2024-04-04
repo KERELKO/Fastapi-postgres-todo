@@ -1,21 +1,18 @@
 from typing import Optional
 
 from src.core.schemas import (
-    CustomBaseModel,
-    BaseOutModel,
+    CustomBaseSchema,
+    BaseOutSchema,
 )
 
 
-class BaseTaskModel(CustomBaseModel):
+class BaseTaskModel(CustomBaseSchema):
     pass
-
-
-class BaseTaskOutModel(BaseOutModel, BaseTaskModel):
-    author_id: int
 
 
 class TaskCreate(BaseTaskModel):
     title: str
+    author_id: int
     description: Optional[str] = None
     completed: bool = False
 
@@ -23,7 +20,7 @@ class TaskCreate(BaseTaskModel):
         return f'[{self.completed}]:{self.title}'
 
 
-class TaskRead(TaskCreate, BaseTaskOutModel):
+class TaskRead(TaskCreate, BaseOutSchema):
     pass
 
 
