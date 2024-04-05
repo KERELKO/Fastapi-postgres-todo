@@ -12,6 +12,10 @@ build:
 compose:
 	${DC} up --remove-orphans
 
+.PHONY: migrate
+migrate:
+	${EXEC} ${API_CONTAINER} alembic upgrade head
+
 .PHONY: unit-tests
 unit-tests:
 	${EXEC} ${API_CONTAINER} pytest tests/unit

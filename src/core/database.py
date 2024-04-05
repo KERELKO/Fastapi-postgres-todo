@@ -34,7 +34,7 @@ class UserModel(SQLAlchemyBaseUserTable[int], BaseModel):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str]
-    tasks: Mapped[list['TaskModel']] = relationship()
+    tasks: Mapped[list['TaskModel']] = relationship(lazy="selectin")
 
     def __repr__(self):
         return f'UserModel(id={self.id} username={self.username} email={self.email})'
@@ -62,7 +62,6 @@ class TaskModel(BaseModel):
 
 async def init_models():
     async with engine.begin() as conn:
-        await conn.run_sync(BaseModel.metadata.drop_all)
         await conn.run_sync(BaseModel.metadata.create_all)
 
 
