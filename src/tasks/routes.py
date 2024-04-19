@@ -24,7 +24,7 @@ async def my_tasks(
     return tasks
 
 
-@router.get('/list', response_model=list[TaskRead])
+@router.get('', response_model=list[TaskRead])
 async def get_task_list(
     user: UserRead = Depends(is_admin), limit: int = None
 ) -> list[TaskRead]:
@@ -40,7 +40,7 @@ async def get_task(
     return task
 
 
-@router.post('/create', response_model=TaskRead)
+@router.post('', response_model=TaskRead)
 async def create_task(
     task_data: TaskCreate, user: UserRead = Depends(current_active_user)
 ) -> TaskRead:
@@ -49,7 +49,7 @@ async def create_task(
     return new_task
 
 
-@router.patch('/update/{task_id}', response_model=TaskRead)
+@router.patch('{task_id}', response_model=TaskRead)
 async def update_task(
     values: TaskUpdate,
     task_id: int,
@@ -61,7 +61,7 @@ async def update_task(
     return updated_task
 
 
-@router.delete('/delete/{task_id}', response_model=dict)
+@router.delete('{task_id}', response_model=dict)
 async def delete_task(
     task_id: int, user: UserRead = Depends(current_active_user)
 ) -> dict:
