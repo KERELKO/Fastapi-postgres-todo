@@ -46,53 +46,53 @@ uvicorn src.main:create_app --reload
 ## Project structure
 ```
 .
+├── Dockerfile
+├── Makefile
+├── README.md
+├── docker-compose.yaml
+├── migrations
 ├── poetry.lock
 ├── pyproject.toml
 ├── src
-│   ├── auth
-│   │   ├── config.py
-│   │   ├── __init__.py
-│   │   ├── manager.py
-│   │   ├── routes.py
-│   │   └── schemas.py
-│   ├── core
-│   │   ├── config.py
-│   │   ├── constants.py
-│   │   ├── database.py
-│   │   ├── exceptions.py
-│   │   ├── __init__.py
-│   │   ├── middleware.py
-│   │   ├── repositories
-│   │   │   ├── base.py
-│   │   │   └── sqlalchemy.py
-│   │   └── schemas.py
-│   ├── __init__.py
-│   ├── main.py
-│   ├── services
-│   │   ├── __init__.py
-│   │   └── tasks.py
-│   ├── tasks
-│   │   ├── exceptions.py
-│   │   ├── __init__.py
-│   │   ├── routes.py
-│   │   └── schemas.py
-│   └── utils
-│       ├── __init__.py
-│       └── web.py
+│   ├── __init__.py
+│   ├── auth
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── manager.py
+│   │   ├── routes.py
+│   │   └── schemas.py
+│   ├── core
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── database.py
+│   │   ├── exceptions.py
+│   │   ├── middleware.py
+│   │   ├── repositories
+│   │   │   ├── base.py
+│   │   │   └── sqlalchemy.py
+│   │   └── schemas.py
+│   ├── main.py
+│   └── tasks
+│       ├── __init__.py
+│       ├── exceptions.py
+│       ├── handlers.py
+│       ├── schemas.py
+│       └── services.py
 └── tests
-    ├── e2e
-    │   ├── conftest.py
-    │   ├── __init__.py
-    │   ├── test_auth.py
-    │   └── test_tasks.py
     ├── __init__.py
+    ├── e2e
+    │   ├── __init__.py
+    │   ├── conftest.py
+    │   ├── test_auth.py
+    │   └── test_tasks.py
     ├── integration
-    │   ├── conftest.py
-    │   ├── __init__.py
-    │   └── test_repo.py
+    │   ├── __init__.py
+    │   ├── conftest.py
+    │   └── test_repo.py
     └── unit
-        ├── conftest.py
-        └── __init__.py
+        ├── __init__.py
+        └── conftest.py
 ```
 
 
