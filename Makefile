@@ -1,7 +1,7 @@
 DC = docker compose
 EXEC = docker exec -it
 TESTS = pytest tests/
-API_CONTAINER = fastapi-todo-app-api-1
+API_CONTAINER = fastapi-todo-api-1
 
 
 .PHONY: build

@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime
 from typing import AsyncGenerator, Optional
 
@@ -7,7 +8,7 @@ from fastapi_users_db_sqlalchemy import (
     SQLAlchemyUserDatabase,
 )
 
-from sqlalchemy import DateTime, NullPool, String, ForeignKey, func
+from sqlalchemy import DateTime, NullPool, String, ForeignKey, func, inspect
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
@@ -60,8 +61,19 @@ class TaskModel(BaseModel):
         )
 
 
+# def check_database_status() -> None:
+#     if not inspect(engine).has_table(TaskModel):
+#         asyncio.run(init_models())
+
+
+# async def database_status():
+#     async with engine.begin() as conn:
+#         await conn.run_sync(check_database_status())
+
+
 async def init_models():
     async with engine.begin() as conn:
+        await conn.run_sync(BaseModel.metadata.drop_all)
         await conn.run_sync(BaseModel.metadata.create_all)
 
 

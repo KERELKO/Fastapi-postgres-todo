@@ -15,7 +15,7 @@ class SQLAlchemyTasksRepository(BaseSQLAlchemyRepository, AbstractRepository):
             return await session.get(TaskModel, id)
 
     async def create(self, task: TaskModel) -> TaskModel:
-        '''Returns new task with id'''
+        """Returns new task with id"""
         async with self.async_session_factory() as session:
             session.add(task)
             await session.commit()
@@ -26,25 +26,30 @@ class SQLAlchemyTasksRepository(BaseSQLAlchemyRepository, AbstractRepository):
             tasks = await session.scalars(sql.select(TaskModel).limit(limit))
             return tasks
 
-    async def update(self, task_id, values) -> None:
+    async def update(self, task_id: int, values: dict) -> None:
         async with self.async_session_factory() as session:
-            stmt = (sql.update(TaskModel).where(id=task_id).values(**values))
+            stmt = (
+                sql.update(TaskModel)
+                .where(TaskModel.id == task_id)
+                .values(**values)
+            )
             await session.execute(stmt)
             await session.commit()
 
-    async def delete(self, task_id) -> int:
-        '''Returns id of the deleted task'''
+    async def delete(self, task_id: int) -> int:
+        """Returns id of the deleted task"""
         async with self.async_session_factory() as session:
-            stmt = sql.delete(TaskModel).where(id=task_id)
+            stmt = sql.delete(TaskModel).where(TaskModel.id==task_id)
             await session.execute(stmt)
             await session.commit()
+            return task_id
 
     async def filter_by(
         self, filters: dict, limit: int = None
     ) -> list[TaskModel]:
         stmt = sql.select(TaskModel)
-        for key, value in filters.items():
-            stmt = stmt.where(getattr(TaskModel, key) == value)
+        for field, value in filters.items():
+            stmt = stmt.where(getattr(TaskModel, field) == value)
         if limit:
             stmt = stmt.limit(limit)
         async with self.async_session_factory() as session:

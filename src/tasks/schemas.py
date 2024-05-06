@@ -1,9 +1,6 @@
 from typing import Optional
 
-from src.core.schemas import (
-    CustomBaseSchema,
-    BaseOutSchema,
-)
+from src.core.schemas import CustomBaseSchema, BaseOutSchema
 
 
 class BaseTaskSchema(CustomBaseSchema):
@@ -17,7 +14,7 @@ class TaskCreate(BaseTaskSchema):
     completed: bool = False
 
     def __str__(self):
-        return f'[{self.completed}]:{self.title}'
+        return f'{self.title}, completed: {self.completed}'
 
 
 class TaskRead(TaskCreate, BaseOutSchema):

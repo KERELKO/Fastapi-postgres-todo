@@ -7,5 +7,5 @@ class AbstractRepository(ABC):
         ...
 
     @abstractmethod
-    async def create(self):
+    async def get_all(self):
         ...

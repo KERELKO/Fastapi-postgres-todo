@@ -9,4 +9,13 @@ class AuthorDoesNotExist(ApplicationException):
 
     @property
     def message(self):
-        return f'Author with id "{self.author_id}" does not exist'
+        return f'Author with id \'{self.author_id}\' does not exist'
+
+
+@dataclass(eq=False)
+class TaskDoesNotExist(ApplicationException):
+    task_id: int
+
+    @property
+    def message(self):
+        return f'Task with id \'{self.task_id}\' does not exist'
