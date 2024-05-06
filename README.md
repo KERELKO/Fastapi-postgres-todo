@@ -97,5 +97,4 @@ uvicorn src.main:create_app --reload
 
 
 ## TODO:
-- UOW
-- Better tests
+- Better tests cover
